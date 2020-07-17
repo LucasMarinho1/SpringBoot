@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Prova</title>
+
+
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+<script src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<script src="/webjars/datatables/1.10.19/js/jquery.dataTables.js"></script>
+
+
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="row" style="padding: 50px 50px 30px 50px;">
+			<!-- Button to Open the Modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#myModal">
+				<span class="glyphicon glyphicon-print"></span>Adicionar Usuario
+			</button>
+		</div>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nome</th>
+						<th scope="col">Email</th>
+						<th scope="col">A&ccedil;&atilde;o</th>
+						<th scope="col">Digito &Uacute;nico</th>
+					</tr>
+				</thead>
+				<tbody th:each="usuario : ${usuarios}">
+					<tr>
+						<td th:text="${usuario.id}"></td>
+						<td th:text="${usuario.nome}"></td>
+						<td th:text="${usuario.email}"></td>
+						<td><a class="btn btn-sm btn-success consult"
+							th:href="@{consultarUsuario/{id}(id=${usuario.id})}"> <i
+								class="fa fa-eye"></i> Visualizar
+						</a> <a class="btn btn-sm btn-warning editar"
+							th:href="@{consultarUsuario/{id}(id=${usuario.id})}"><i
+								class="fa fa-eye"></i> Editar</a> <a class="btn btn-sm btn-danger"
+							th:href="@{deletarUsuario/{id}(id=${usuario.id})}"><i
+								class="fa fa-eye"></i>Apagar</a></td>
+						<td><a class="btn btn-sm btn-outline-info addDigito"
+							th:href="@{consultarUsuario/{id}(id=${usuario.id})}"
+							title="Adicionar Digito &Uacute;nico!">+</a> <a
+							class="btn btn-sm btn-outline-warning listarDigito"
+							th:href="@{consultarDigito/{id}(id=${usuario.id})}"
+							title="Listar Digito &Uacute;nico!">Listar Digitos</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+	</div>
+
+
+	<!-- The Modal -->
+	<div class="modal" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Adicionar Usuario</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="#" th:action="@{/saveUsuario}" th:object="${usuario}"
+						method="post">
+						<div class="form-group">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control" th:field="*{nome}" id="nome"
+								placeholder="Nome do Usuario" />
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label> <input type="email"
+								class="form-control" th:field="*{email}" id="email"
+								placeholder="Email do Usuario">
+						</div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- The Modal -->
+	<div class="modal" id="modalVisualizar">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Usuario</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="#" th:action="@{/saveUsuario}" th:object="${usuario}"
+						method="post">
+						<div class="form-group">
+							<p>
+								<input type="hidden" id="userId" th:field="*{id}">
+							</p>
+						</div>
+						<div class="form-group">
+							<label for="nome">Nome</label> <input class="form-control"
+								type="text" id="userNome" th:field="*{nome}">
+						</div>
+						<div class="form-group">
+							<label for="nome">Email</label> <input class="form-control"
+								type="text" id="userEmail" th:field="*{email}">
+						</div>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="alterar">Editar</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- The Modal -->
+	<div class="modal" id="modalDigitoUnico">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Digito &Uacute;nico</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="#" th:action="@{/digitoUnico}" th:object="${digito}" method="post">
+						<p>
+							<input type="hidden" id="userIdDigito" name="userIdDigito">
+						</p>
+						<div class="form-group">
+							<label for="paramN">Numero (n):</label> <input
+								class="form-control" type="text" id="digNum" name="digNum">
+						</div>
+						<div class="form-group">
+							<label for="numrepeticoes">Num. Repeti&ccedil;&otilde;es
+								(k):</label> <input class="form-control" type="text" id="digNumVezes"
+								name="digNumVezes">
+						</div>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-sm btn-primary"
+						name="cal_Digito" value="Calcular Digito" />
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- The Modal -->
+	<div class="modal" id="modalListarDigitoUnico">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Lista Digitos</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<table id="tableConsultaDig" class="table">
+						
+						
+					</table>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".table .consult").click(function() {
+			event.preventDefault();
+			var href = $(this).attr('href');
+
+			$.get(href, function(usuario, status) {
+				$('#userId').val(usuario.id);
+				$('#userNome').val(usuario.nome);
+				$('#userEmail').val(usuario.email);
+			});
+			$('#alterar').hide();
+			$('#modalVisualizar').modal();
+
+		});
+		$(".table .editar").click(function() {
+			event.preventDefault();
+			var href = $(this).attr('href');
+
+			$.get(href, function(usuario, status) {
+				$('#userId').val(usuario.id);
+				$('#userNome').val(usuario.nome);
+				$('#userEmail').val(usuario.email);
+			});
+			$('#alterar').show();
+			$('#modalVisualizar').modal();
+		});
+		$(".table .addDigito").click(function() {
+			event.preventDefault();
+			var href = $(this).attr('href');
+
+			$.get(href, function(usuario, status) {
+				$('#userIdDigito').val(usuario.id);
+			});
+			$('#alterar').hide();
+			$('#modalDigitoUnico').modal();
+
+		});
+		$(".table .listarDigito").click(function() {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			
+			$.get(href, function(list, status) {
+				x(list);
+			});
+			
+			
+			
+			$('#modalListarDigitoUnico').modal();
+
+		});
+		
+		var x = function(list){
+		    var dataSet = [];
+		    $.each(list, function(index, data)
+		    {
+		    	dataSet.push([
+		              data.paramN,
+		              data.paramK,
+		              data.digitoUnico
+		     	]);
+		    });
+		    $('#tableConsultaDig').DataTable({
+		      searching: false,
+		      paging: false,
+		      retrieve: false,
+		      info: false,
+		      data: dataSet,
+		      "bDestroy": true,
+		      columns: [
+		        { title: 'Numero (n):' },
+		        { title: 'Num. Repet.' },
+		        { title: 'Dig. Unico' }
+		      ]
+		    });	
+		  };
+	});
+</script>
+</html>

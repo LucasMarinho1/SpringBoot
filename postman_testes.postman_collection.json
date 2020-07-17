@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "361f68f8-d3ea-4144-86ee-f792b1abf3e6",
+		"name": "postman_testes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/consultarDigito/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/consultUser/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"consultUser",
+						"1"
+					]
+				},
+				"description": "Ira consultar todos os digitos unicos dos uruario com id = 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/saveUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"nome\": \"Lucas\",\r\n    \"email\": \"Lucas@hotmail.com\",\r\n    \"digito\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/saveUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saveUser"
+					]
+				},
+				"description": "Salvar Usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/editUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"id\": 2,\r\n    \"nome\": \"Lucas Marinho\",\r\n    \"email\": \"Lucas@hotmail.com\",\r\n    \"digito\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/editUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"editUser"
+					]
+				},
+				"description": "Editar Usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/deleteUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Lucas\",\r\n    \"email\": \"Lucas@hotmail.com\",\r\n    \"digito\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/deleteUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"deleteUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/consultDig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Lucas\",\r\n    \"email\": \"Lucas@hotmail.com\",\r\n    \"digito\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/consultDig",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"consultDig"
+					]
+				},
+				"description": "Consultar digito unico relacionados a um usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/criarDig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"paramN\": \"2991\",\r\n        \"paramK\": 2,\r\n        \"idUsuario\": {\r\n            \"id\": 1,\r\n            \"nome\": \"Lucas\",\r\n            \"email\": \"Lucas@hotmail.com\",\r\n            \"digito\": []\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/criarDig",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"criarDig"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
